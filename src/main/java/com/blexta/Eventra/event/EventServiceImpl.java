@@ -23,6 +23,10 @@ public class EventServiceImpl implements EventService {
 	
 	@Override
 	public EventDto createEvent(EventRequest dto, User user) {
+		eventRepository.findByTitleAndLocation(dto.getTitle(), dto.getLocation())
+        .ifPresent(e -> {
+            throw new IllegalArgumentException("An event with this title and location already exists");
+        });
 		User creator = userService.getUserByEmail(user.getEmail());
 		Event event = Event.builder()
 	            .title(dto.getTitle())
@@ -37,6 +41,11 @@ public class EventServiceImpl implements EventService {
 	}
 	@Override
 	public EventDto updateEvent(long id, EventRequest dto,User user) {
+		eventRepository.findByTitleAndLocation(dto.getTitle(), dto.getLocation())
+        .filter(e -> e.getEventId() != id) 
+        .ifPresent(e -> {
+            throw new IllegalArgumentException("Another event with this title and location already exists");
+        });
 		Event event = fetchEventEntityById(id);
 		event.setTitle(dto.getTitle());
 	    event.setDescription(dto.getDescription());

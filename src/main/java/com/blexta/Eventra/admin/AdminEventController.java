@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 @RestController
-@RequestMapping("/api/admin/avents")
+@RequestMapping("/api/admin/events")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Admin Event Management", description = "Admin endpoints for managing events")
