@@ -78,6 +78,12 @@ public class EventServiceImpl implements EventService {
 		Page<Event> events = eventRepository.findAll(pageable);
 		return events.map(this::mapToDto);
 	}
+	public Page<EventDto> getAllEventsForUser(User user, int page, int size) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    return eventRepository.findAllExcludingUserRegisteredEvents(user.getUserId(), pageable)
+	            .map(this::mapToDto);
+	}
+
 	
 	@Override
 	public Page<EventDto> getEventsByCategory(int page, int size,Category category) {

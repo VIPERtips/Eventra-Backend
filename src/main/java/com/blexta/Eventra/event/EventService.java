@@ -13,6 +13,7 @@ public interface EventService {
 	void deleteEvent(long id);
 	EventDto getEventById(long id);
 	Page<EventDto> getAllEvents(int page, int size);
+	Page<EventDto> getAllEventsForUser(User user, int page, int size);
 	Page<EventDto> getEventsByCategory(int page, int size,Category category);
 	
 }
